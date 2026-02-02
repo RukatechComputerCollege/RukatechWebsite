@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+import HeroSection from "../components/sections/HeroSection";
+import Navbar from "../components/Navbar";
 
 const LandingPage = () => {
   return (
-    <div>LandingPage</div>
-  )
-}
+    <div>
+      <Navbar />
+      <HeroSection />
+    </div>
+  );
+};
 
-export default LandingPage
+export default LandingPage;

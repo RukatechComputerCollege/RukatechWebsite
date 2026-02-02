@@ -1,13 +1,16 @@
-import React from 'react'
-import { Outlet } from 'react-router'
-
+import React from "react";
+import { Outlet } from "react-router";
+import Navbar from "../components/Navbar";
+import { WhatsAppButton } from "../components/WhatsappButton";
 
 const Home = () => {
   return (
     <>
-    <Outlet />
+      <Navbar />
+      <Outlet />
+      <WhatsAppButton />
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

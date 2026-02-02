@@ -1,20 +1,153 @@
-import React from 'react'
+import React, { useState } from "react";
+import { MdKeyboardArrowDown } from "react-icons/md";
+import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
+  const [open, setOpen] = useState(false);
 
   const navLinks = [
     { name: "HOME", href: "#", active: true },
-    { name: "ABOUT", href: "/about", hasDropdown: true },
-    { name: "TRAINING", href: "#", hasDropdown: true },
+    { name: "ABOUT US", href: "#" },
+    { name: "PROGRAMS", href: "#" },
+    { name: "CONTACT US", href: "#" },
     { name: "STUDENT PORTAL", href: "#" },
-    { name: "CONTACT US", href: "/contact" },
   ];
 
   return (
-    <div>
+    <nav className="absolute top-0 left-0 md:pl-26 right-0 z-40 navbar-border">
+      <div className="container mx-auto px-6 lg:px-12">
+        <div className="flex items-center justify-between py-4">
+          {/* Logo */}
+          <div className="flex items-center gap-2">
+            <div className="flex items-center">
+              <img
+                src="logo.png"
+                alt="Rukatech Logo"
+                className="w-10 h-10 object-contain"
+              />
+              <div className="ml-2">
+                <span className="text-[hsl(var(--primary))] font-bold text-sm md:text-lg tracking-tight">
+                  RUKATECH COMPUTER COLLEGE
+                </span>
+                <span className="block text-[hsl(var(--accent))] text-sm md:text-medium font-medium -mt-1">
+                  Learn What Earns
+                </span>
+              </div>
+            </div>
+          </div>
 
-    </div>
-  )
-}
+          {/* Navigation Links */}
+          <div className="hidden md:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                className={`nav-link flex items-center gap-1 ${link.active ? "nav-link-active" : ""}`}
+              >
+                {link.name}
+                {link.hasDropdown && (
+                  <MdKeyboardArrowDown className="w-4 h-4" />
+                )}
+              </a>
+            ))}
+          </div>
 
-export default Navbar
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden text-[hsl(var(--primary))] p-2 rounded-md"
+            aria-label="Open menu"
+            onClick={() => setOpen(true)}
+          >
+            <HiOutlineMenu className="w-6 h-6" />
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Slide-in Panel */}
+      <AnimatePresence>
+        {open && (
+          <>
+            {/* Overlay */}
+            <motion.div
+              key="overlay"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.18 }}
+              className="fixed inset-0 z-40 bg-black/40"
+              onClick={() => setOpen(false)}
+            />
+
+            {/* Panel */}
+            <motion.aside
+              key="panel"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="fixed top-0 right-0 z-50 h-full w-80 bg-white dark:bg-slate-900 shadow-lg p-6"
+            >
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-2">
+                  <img
+                    src="logo.png"
+                    alt="Rukatech Logo"
+                    className="w-8 h-8 object-contain"
+                  />
+                  <div>
+                    <span className="text-[hsl(var(--primary))] font-bold text-sm tracking-tight">
+                      RUKATECH
+                    </span>
+                    <span className="block text-[hsl(var(--accent))] font-medium -mt-1 text-xs">
+                      Learn What Earns
+                    </span>
+                  </div>
+                </div>
+                <button
+                  aria-label="Close menu"
+                  onClick={() => setOpen(false)}
+                  className="p-2 rounded-md"
+                >
+                  <HiOutlineX className="w-6 h-6" />
+                </button>
+              </div>
+
+              <nav className="flex flex-col gap-4">
+                {navLinks.map((link, index) => (
+                  <motion.a
+                    key={link.name}
+                    href={link.href}
+                    initial={{ x: 40, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    exit={{ x: 40, opacity: 0 }}
+                    transition={{
+                      delay: 0.05 * index,
+                      type: "spring",
+                      stiffness: 200,
+                    }}
+                    onClick={() => setOpen(false)}
+                    className="text-lg font-semibold tracking-wide"
+                  >
+                    {link.name}
+                  </motion.a>
+                ))}
+              </nav>
+
+              <div className="mt-8">
+                <a
+                  href="#"
+                  className="inline-block px-4 py-2 bg-[hsl(var(--accent))] text-[hsl(var(--accent-foreground))] rounded-md font-semibold"
+                >
+                  Get Started
+                </a>
+              </div>
+            </motion.aside>
+          </>
+        )}
+      </AnimatePresence>
+    </nav>
+  );
+};
+
+export default Navbar;
