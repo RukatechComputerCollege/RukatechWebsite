@@ -1,1 +1,168 @@
 @import "tailwindcss";
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+@layer base {
+    * {
+    @apply border-[hsl(var(--border))];
+  }
+
+  body {
+    @apply bg-[hsl(var(--background))] text-[hsl(var(--foreground))] font-sans;
+    font-family: 'Poppins', sans-serif;
+  }
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 100%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 0 0% 100%;
+    --accent: 4 85% 55%;
+    --crent: 16, 87%, 49%;
+    --primary-foreground: 217 71% 30%;
+
+    --secondary: 217 71% 30%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 217 71% 40%;
+    --muted-foreground: 0 0% 85%;
+
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 0 0% 100% / 0.2;
+    --input: 0 0% 100% / 0.2;
+    --ring: 4 85% 55%;
+
+    --radius: 0.5rem;
+
+    /* Custom hero colors */
+    --hero-overlay: 217 71% 30%;
+    --hero-overlay-opacity: 0.75;
+    --whatsapp: 142 70% 45%;
+    --navbar-border: 0 0% 100% / 0.15;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 217 71% 20%;
+    --foreground: 0 0% 100%;
+
+    --card: 217 71% 25%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 217 71% 25%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 0 0% 100%;
+    --primary-foreground: 217 71% 30%;
+
+    --secondary: 217 71% 35%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 217 71% 40%;
+    --muted-foreground: 0 0% 75%;
+
+    --accent: 4 85% 55%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 0 0% 100% / 0.2;
+    --input: 0 0% 100% / 0.2;
+    --ring: 4 85% 55%;
+
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer components {
+  .nav-link {
+    @apply text-[hsl(var(--primary))] text-sm font-medium tracking-wide transition-colors hover:text-[hsl(var(--crent))] relative py-2;
+  }
+
+  .nav-link-active {
+    @apply text-[hsl(var(--primary))];
+  }
+
+  .nav-link-active::after {
+    content: "";
+    @apply absolute bottom-0 left-0 right-0 h-0.5 bg-[hsl(var(--accent))];
+  }
+
+  .hero-overlay {
+    background: linear-gradient(
+      to right,
+      hsl(var(--hero-overlay) / 0.85) 0%,
+      hsl(var(--hero-overlay) / 0.7) 50%,
+      hsl(var(--hero-overlay) / 0.6) 100%
+    );
+  }
+
+  .cta-button {
+    @apply inline-flex items-center gap-3 border-2 border-[hsl(var(--accent))] rounded-4xl text-[hsl(var(--primary))] bg-transparent 
+           px-6 py-3 text-sm font-semibold tracking-wider transition-all duration-300
+           hover:bg-[hsl(var(--accent))] hover:text-[hsl(var(--accent-foreground))];
+  }
+
+  .cta-arrow {
+    @apply w-8 h-8 rounded-full bg-[hsl(var(--accent))] flex transform rotate-300 items-center justify-center text-[hsl(var(--accent-foreground))];
+  }
+
+  .whatsapp-button {
+    @apply fixed bottom-6 left-6 w-14 h-14 rounded-full bg-[hsl(var(--whatsapp))] flex items-center justify-center
+           text-[hsl(var(--primary))] shadow-lg transition-transform hover:scale-110 z-50;
+  }
+
+  .slide-indicator {
+    @apply w-2 h-2 rounded-full bg-[hsl(var(--primary))/40] transition-all duration-300;
+  }
+
+  .slide-indicator-active {
+    @apply w-3 h-3 bg-[hsl(var(--primary))];
+  }
+
+  .navbar-border {
+    @apply border-b border-[hsl(var(--navbar-border))];
+    box-shadow: 0 1px 0 0 hsl(var(--navbar-border));
+  }
+}
+
+@layer utilities {
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Fallback utility for the custom fade-in animation in case Tailwind didn't emit it */
+  .animate-fade-in {
+    animation: fade-in 0.8s ease-out forwards;
+  }
+
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
