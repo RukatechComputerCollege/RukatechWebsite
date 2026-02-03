@@ -9,28 +9,28 @@ const Navbar = () => {
   const navLinks = [
     { name: "HOME", href: "#", active: true },
     { name: "ABOUT US", href: "#" },
-    { name: "PROGRAMS", href: "#" },
+    { name: "PROGRAMS", href: "#", hasDropdown: true },
     { name: "CONTACT US", href: "#" },
     { name: "STUDENT PORTAL", href: "#" },
   ];
 
   return (
-    <nav className="absolute top-0 left-0 md:pl-26 right-0 z-40 navbar-border">
-      <div className="container mx-auto px-6 lg:px-12">
+    <nav className="absolute top-0 left-0 lg:pl-26 right-0 z-40 navbar-border">
+      <div className="container mx-auto lg:px-12">
         <div className="flex items-center justify-between py-4">
           {/* Logo */}
           <div className="flex items-center gap-2">
             <div className="flex items-center">
               <img
-                src="logo.png"
+                src="images/logo.png"
                 alt="Rukatech Logo"
                 className="w-10 h-10 object-contain"
               />
               <div className="ml-2">
-                <span className="text-[hsl(var(--primary))] font-bold text-sm md:text-lg tracking-tight">
+                <span className="text-[hsl(var(--primary))] font-bold text-sm lg:text-lg tracking-tight">
                   RUKATECH COMPUTER COLLEGE
                 </span>
-                <span className="block text-[hsl(var(--accent))] text-sm md:text-medium font-medium -mt-1">
+                <span className="block text-[hsl(var(--accent))] text-sm lg:text-medium font-medium -mt-1">
                   Learn What Earns
                 </span>
               </div>

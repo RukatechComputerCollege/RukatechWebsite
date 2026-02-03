@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { GiSupersonicArrow } from "react-icons/gi";
-import heroImage from "../../../public/hero-business.jpg";
+import CTAButton from "../CTAButton";
+import heroImage from "../../../public/images/hero-business.jpg";
 
 const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(6);
@@ -32,7 +32,7 @@ const HeroSection = () => {
           <div className="flex gap-3">
             <div className="h-0.5 w-8 md:w-12 mt-2 md:mt-3 bg-[hsl(var(--accent))]" />
             <p className="text-white text-sm text-shadow md:text-lg mb-4 tracking-wide">
-                Don't - Miss Out On Our Upcoming Trainings.
+              Don't - Miss Out On Our Upcoming Trainings.
             </p>
           </div>
 
@@ -42,12 +42,12 @@ const HeroSection = () => {
           </h1>
 
           {/* CTA Button */}
-          <button className="cta-button group">
-            <span>LEARN MORE</span>
-            <span className="cta-arrow group-hover:translate-x-1 transition-transform">
-              <GiSupersonicArrow className="w-4 h-4" />
-            </span>
-          </button>
+          <CTAButton
+            href="#"
+            label="LEARN MORE"
+            textColor="text-white"
+            hoverTextColor="text-[hsl(var(--accent))]"
+          />
         </div>
 
         {/* Slide Indicators */}
