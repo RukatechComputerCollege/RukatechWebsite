@@ -1,271 +1,269 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import CarouselNavButton from "../ui/CarouselNavButton";
+import { Star } from "lucide-react";
 
-const testimonialsSeed = [
+const testimonials = [
   {
     id: 1,
-    name: "Aisha Bello",
-    role: "Software Engineer",
+    name: "Edward Alexander",
+    rating: 4.9,
+    date: "29 Aug, 2017",
     quote:
-      "The courses were practical and hands-on — I landed my first cloud role within 3 months. The instructors are world-class and supportive.",
-    avatar: "/images/student-portrait.jpg",
-    rating: 5,
+      "Amazing service and support! The team went above and beyond to ensure our project was delivered on time. Highly recommend their professional approach.",
+    avatar:
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
   },
   {
     id: 2,
-    name: "Samuel Okoro",
-    role: "High School Student",
+    name: "Diana Johnston",
+    rating: 4.9,
+    date: "29 Aug, 2017",
     quote:
-      "I learned design and coding in a way that actually made sense. Projects were fun and helped me build my portfolio.",
-    avatar: "/images/student-portrait.jpg",
-    rating: 5,
+      "Overall pleasurable experience. Pay a little first and Pay a little during the development of the app as milestones are achieved, which made me feel very confident and comfortable. Seamless and Easy process.",
+    avatar:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face",
   },
   {
     id: 3,
-    name: "Chinwe Nwosu",
-    role: "Career Switcher",
+    name: "Lauren Contreras",
+    rating: 4.9,
+    date: "29 Aug, 2017",
     quote:
-      "Flexible, career-focused classes with mentors who cared. The hands-on projects gave me confidence to apply for roles.",
-    avatar: "/images/student-portrait.jpg",
-    rating: 5,
+      "Exceptional quality and attention to detail. The communication throughout the project was outstanding. Will definitely work with them again on future projects.",
+    avatar:
+      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
   },
   {
     id: 4,
-    name: "Tunde Akande",
-    role: "Teen Learner",
+    name: "Michael Chen",
+    rating: 4.8,
+    date: "15 Sep, 2017",
     quote:
-      "Friendly instructors and clear projects — loved the community and the weekly live sessions.",
-    avatar: "/images/student-portrait.jpg",
-    rating: 5,
+      "Incredible attention to user experience. They transformed our vision into reality with precision and creativity. The end result exceeded all expectations.",
+    avatar:
+      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
   },
 ];
 
-export default function TestimonialSection() {
-  const [items, setItems] = useState(testimonialsSeed);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const carouselRef = useRef(null);
-  const pauseRef = useRef(false);
-  const intervalRef = useRef(null);
+// Positions along the curve (top, middle, bottom)
+const curvePositions = [
+  { x: 48, y: 40 },
+  { x: 68, y: 140 },
+  { x: 48, y: 240 },
+];
 
-  // rotate forward by moving first item to the end
-  const rotateNext = () => {
-    setItems((prev) => {
-      const nxt = [...prev.slice(1), prev[0]];
-      return nxt;
-    });
-    setActiveIndex(0);
+// Entry position (above the curve)
+const entryPosition = { x: 28, y: -40 };
+// Exit position (to the left, fading out)
+const exitPosition = { x: -80, y: 280 };
+
+const TestimonialSectionX = () => {
+  const [step, setStep] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(1); // Middle position is active
+
+  // Exact rotation sequence: 123 → 412 → 341 → 234 → 123
+  const rotationSequence = [
+    [0, 1, 2],
+    [3, 0, 1],
+    [2, 3, 0],
+    [1, 2, 3],
+  ];
+
+  const getPreviousIndices = () => {
+    const prevStep = (step - 1 + 4) % 4;
+    return rotationSequence[prevStep];
   };
 
-  // rotate backward by moving last item to the start
-  const rotatePrev = () => {
-    setItems((prev) => {
-      const last = prev[prev.length - 1];
-      return [last, ...prev.slice(0, prev.length - 1)];
-    });
-    setActiveIndex(0);
+  const getVisibleIndices = () => {
+    return rotationSequence[step];
   };
 
   useEffect(() => {
-    function startAutoplay() {
-      if (intervalRef.current) return;
-      intervalRef.current = setInterval(() => {
-        if (!pauseRef.current) rotateNext();
-      }, 4500);
-    }
-    function stopAutoplay() {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
-      }
-    }
-
-    startAutoplay();
-    return () => stopAutoplay();
+    const interval = setInterval(() => {
+      setStep((prev) => (prev + 1) % 4);
+    }, 4000);
+    return () => clearInterval(interval);
   }, []);
 
-  // pause on interactions
-  useEffect(() => {
-    const el = carouselRef.current;
-    if (!el) return;
-    const onPointerDown = () => (pauseRef.current = true);
-    const onPointerUp = () => (pauseRef.current = false);
-    const onEnter = () => (pauseRef.current = true);
-    const onLeave = () => (pauseRef.current = false);
+  const visibleIndices = getVisibleIndices();
+  const previousIndices = getPreviousIndices();
 
-    el.addEventListener("pointerdown", onPointerDown);
-    el.addEventListener("pointerup", onPointerUp);
-    el.addEventListener("mouseenter", onEnter);
-    el.addEventListener("mouseleave", onLeave);
+  const exitingTestimonial = previousIndices[2];
+  const isExiting = !visibleIndices.includes(exitingTestimonial);
 
-    return () => {
-      el.removeEventListener("pointerdown", onPointerDown);
-      el.removeEventListener("pointerup", onPointerUp);
-      el.removeEventListener("mouseenter", onEnter);
-      el.removeEventListener("mouseleave", onLeave);
-    };
-  }, []);
-
-  const cardVariants = {
-    enter: { opacity: 0, y: 12 },
-    center: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-    exit: { opacity: 0, y: -12, transition: { duration: 0.35 } },
+  const handleClick = (positionIndex) => {
+    setActiveIndex(positionIndex);
   };
 
   return (
-    <section className="py-16 bg-[hsl(var(--background))]">
-      <div className="max-w-[1200px] mx-auto px-4">
-        <div className="flex flex-col lg:flex-row gap-8 items-start">
-          <div className="lg:w-1/3">
-            <span className="inline-block bg-[hsl(var(--accent))] text-[hsl(var(--accent-foreground))] px-3 py-1 rounded-full text-xs font-semibold">
-              TESTIMONIALS
-            </span>
-            <h2 className="mt-4 text-3xl font-extrabold text-[hsl(var(--primary))]">
-              What our learners say
+    <section className="relative min-h-screen w-full overflow-hidden bg-[hsl(var(--primary))] py-20">
+      <div className="absolute -left-32 -top-45 h-220 w-180 rounded-full bg-[hsl(var(--accent))] opacity-100" />
+      
+      <div className="container mx-auto px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="relative mx-auto max-w-5xl rounded-sm bg-[hsl(var(--primary))] px-8 py-12 shadow-xl md:px-16"
+        >
+          <div className="mb-10 flex items-center gap-3">
+            <div className="h-0.5 w-8 bg-[hsl(var(--accent))]" />
+            <h2 className="text-xl font-semibold tracking-tight text-[hsl(var(--accent))]">
+              Customer Reviews
             </h2>
-            <p className="mt-3 text-[hsl(var(--muted))]">
-              Real stories from students who transformed their careers and lives
-              through our practical, project-driven courses.
-            </p>
-
-            <div className="mt-6 hidden lg:flex gap-3">
-              <CarouselNavButton
-                onClick={() => {
-                  pauseRef.current = true;
-                  rotatePrev();
-                }}
-                ariaLabel="Previous testimonial"
-                direction="prev"
-                bgClass="bg-white"
-                borderClass="border-2 border-[hsl(var(--accent)/10%)]"
-                bgHoverClass="hover:bg-[hsl(var(--accent))]"
-                borderHoverClass="hover:border-[hsl(var(--accent))]"
-                iconColorClass="text-[hsl(var(--primary))]"
-                iconHoverColorClass="group-hover:text-[hsl(var(--primary))]"
-              />
-
-              <CarouselNavButton
-                onClick={() => {
-                  pauseRef.current = true;
-                  rotateNext();
-                }}
-                ariaLabel="Next testimonial"
-                direction="next"
-                bgClass="bg-white"
-                borderClass="border-2 border-[hsl(var(--accent)/10%)]"
-                bgHoverClass="hover:bg-[hsl(var(--accent))]"
-                borderHoverClass="hover:border-[hsl(var(--accent))]"
-                iconColorClass="text-[hsl(var(--primary))]"
-                iconHoverColorClass="group-hover:text-[hsl(var(--primary))]"
-              />
-            </div>
           </div>
 
-          <div className="lg:w-2/3">
-            <div ref={carouselRef} className="relative">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {items.slice(0, 3).map((t, i) => (
-                  <AnimatePresence mode="wait" key={t.id + String(i)}>
-                    <motion.article
-                      layout
-                      initial="enter"
-                      animate="center"
-                      exit="exit"
-                      variants={cardVariants}
-                      className="bg-[hsl(var(--card))] text-[hsl(var(--card-foreground))] rounded-2xl p-6 flex flex-col gap-4 shadow-lg"
+          <div className="grid gap-8 md:grid-cols-2">
+            <div className="relative h-75">
+              <svg
+                className="absolute left-0 top-0 h-full w-32"
+                viewBox="0 0 100 300"
+                fill="none"
+                preserveAspectRatio="none"
+              >
+                <path
+                  d="M 50 20 Q 90 150 50 280"
+                  stroke="hsl(var(--testimonial-line))"
+                  strokeWidth="2"
+                  fill="none"
+                />
+              </svg>
+
+              <AnimatePresence mode="popLayout">
+                {visibleIndices.map((testimonialIndex, positionIndex) => {
+                  const testimonial = testimonials[testimonialIndex];
+                  const position = curvePositions[positionIndex];
+                  const isActive = positionIndex === activeIndex;
+
+                  const wasInPreviousStep =
+                    previousIndices.includes(testimonialIndex);
+                  const previousPosition = wasInPreviousStep
+                    ? previousIndices.indexOf(testimonialIndex)
+                    : -1;
+
+                  let initialX = position.x;
+                  let initialY = position.y;
+
+                  if (!wasInPreviousStep) {
+                    initialX = entryPosition.x;
+                    initialY = entryPosition.y;
+                  } else if (previousPosition !== -1) {
+                    initialX = curvePositions[previousPosition].x;
+                    initialY = curvePositions[previousPosition].y;
+                  }
+
+                  return (
+                    <motion.div
+                      key={testimonial.id}
+                      initial={{
+                        opacity: wasInPreviousStep ? 1 : 0,
+                        scale: wasInPreviousStep ? 1 : 0.8,
+                        x: initialX,
+                        y: initialY,
+                      }}
+                      animate={{
+                        opacity: 1,
+                        scale: 1,
+                        x: position.x,
+                        y: position.y,
+                      }}
+                      exit={{
+                        opacity: 0,
+                        scale: 0.8,
+                        x: exitPosition.x,
+                        y: exitPosition.y,
+                      }}
+                      transition={{
+                        duration: 0.6,
+                        ease: [0.4, 0, 0.2, 1],
+                      }}
+                      onClick={() => handleClick(positionIndex)}
+                      className="absolute flex cursor-pointer items-center gap-4"
+                      style={{ left: 0, top: 0 }}
                     >
-                      <div className="flex items-center gap-4">
+                      <motion.div
+                        animate={{
+                          scale: isActive ? 1 : 0.85,
+                          opacity: isActive ? 1 : 0.6,
+                        }}
+                        transition={{ duration: 0.3 }}
+                        className="relative z-10"
+                      >
                         <img
-                          src={t.avatar}
-                          className="w-14 h-14 rounded-full object-cover"
-                          alt={t.name}
+                          src={testimonial.avatar}
+                          alt={testimonial.name}
+                          className={`rounded-full border-2 object-cover transition-all duration-300 ${
+                            isActive
+                              ? "h-14 w-14 border-[hsl(var(--crent))] shadow-lg md:h-16 md:w-16"
+                              : "h-10 w-10 border-[hsl(var(--accent))] md:h-12 md:w-12"
+                          }`}
                         />
-                        <div>
-                          <div className="font-semibold text-[hsl(var(--primary))]">
-                            {t.name}
-                          </div>
-                          <div className="text-sm text-[hsl(var(--muted))]">
-                            {t.role}
-                          </div>
-                        </div>
-                      </div>
+                      </motion.div>
 
-                      <blockquote className="text-[hsl(var(--primary))] text-sm leading-relaxed flex-1">
-                        “{t.quote}”
-                      </blockquote>
-
-                      <div className="flex items-center gap-2 mt-2">
-                        {Array.from({ length: t.rating }).map((_, s) => (
-                          <svg
-                            className="w-4 h-4 text-[#F59E0B]"
-                            viewBox="0 0 24 24"
-                            fill="#F59E0B"
-                            key={s}
+                      <motion.div
+                        animate={{
+                          opacity: isActive ? 1 : 0.6,
+                        }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <h3
+                          className={`font-semibold transition-all duration-300 ${
+                            isActive
+                              ? "text-lg text-[hsl(var(--accent))]"
+                              : "text-sm text-[hsl(var(--accent))]"
+                          }`}
+                        >
+                          {testimonial.name}
+                        </h3>
+                        <div className="flex items-center gap-1.5">
+                          <Star className="h-3.5 w-3.5 fill-[hsl(var(--testimonial-star))] text-[hsl(var(--testimonial-star))]" />
+                          <span
+                            className={`transition-all duration-300 ${
+                              isActive
+                                ? "text-sm text-[hsl(var(--accent))]"
+                                : "text-xs text-[hsl(var(--accent))]"
+                            }`}
                           >
-                            <path d="M12 .587l3.668 7.431L23.5 9.75l-5.666 5.523L19.334 24 12 19.897 4.666 24l1.5-8.727L.5 9.75l7.832-1.732L12 .587z" />
-                          </svg>
-                        ))}
-                      </div>
-                    </motion.article>
-                  </AnimatePresence>
-                ))}
-              </div>
+                            {testimonial.rating} on {testimonial.date}
+                          </span>
+                        </div>
+                      </motion.div>
+                    </motion.div>
+                  );
+                })}
+              </AnimatePresence>
+            </div>
 
-              {/* mobile controls */}
-              <div className="absolute left-3 right-3 top-3 flex justify-between lg:hidden">
-                <CarouselNavButton
-                  onClick={() => {
-                    pauseRef.current = true;
-                    rotatePrev();
-                  }}
-                  ariaLabel="Previous testimonial"
-                  direction="prev"
-                  bgClass="bg-white"
-                  borderClass="border-2 border-[hsl(var(--accent)/10%)]"
-                  bgHoverClass="hover:bg-[hsl(var(--accent))]"
-                  borderHoverClass="hover:border-[hsl(var(--accent))]"
-                  iconColorClass="text-[hsl(var(--primary))]"
-                  iconHoverColorClass="group-hover:text-[hsl(var(--primary))]"
-                />
+            <div className="relative flex items-center">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={`quote-${visibleIndices[activeIndex]}`}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.4, ease: "easeInOut" }}
+                  className="relative"
+                >
+                  <span className="absolute -left-4 -top-4 font-serif text-6xl text-[hsl(var(--testimonial-star))] md:-left-6 md:text-7xl">
+                    "
+                  </span>
 
-                <CarouselNavButton
-                  onClick={() => {
-                    pauseRef.current = true;
-                    rotateNext();
-                  }}
-                  ariaLabel="Next testimonial"
-                  direction="next"
-                  bgClass="bg-white"
-                  borderClass="border-2 border-[hsl(var(--accent)/10%)]"
-                  bgHoverClass="hover:bg-[hsl(var(--accent))]"
-                  borderHoverClass="hover:border-[hsl(var(--accent))]"
-                  iconColorClass="text-[hsl(var(--primary))]"
-                  iconHoverColorClass="group-hover:text-[hsl(var(--primary))]"
-                />
-              </div>
+                  <p className="pl-4 font-serif text-lg italic leading-relaxed text-[hsl(var(--testimonial-star))] md:pl-6 md:text-xl">
+                    <span className="text-2xl md:text-3xl">
+                      {testimonials[visibleIndices[activeIndex]].quote.charAt(
+                        0,
+                      )}
+                    </span>
+                    {testimonials[visibleIndices[activeIndex]].quote.slice(1)}
+                  </p>
+                </motion.div>
+              </AnimatePresence>
             </div>
           </div>
-        </div>
-
-        {/* Indicators */}
-        <div className="mt-8 flex items-center gap-2 justify-center">
-          {items.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => {
-                // rotate until chosen appears at 0
-                const current = [...items];
-                while (current[0].id !== items[idx].id) {
-                  current.push(current.shift());
-                }
-                setItems(current);
-                setActiveIndex(0);
-              }}
-              className={`w-2 h-2 rounded-full ${idx === 0 ? "bg-[hsl(var(--accent))]" : "bg-[hsl(var(--primary))/20%]"}`}
-            />
-          ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
-}
+};
+
+export default TestimonialSectionX;
