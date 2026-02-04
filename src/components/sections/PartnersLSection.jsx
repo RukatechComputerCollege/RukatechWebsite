@@ -1,12 +1,10 @@
-import LogoLoop from "../PartnersLoop";
+import LogoLoop from "../ui/PartnersLoop";
 import {
   SiReact,
   SiNextdotjs,
   SiTypescript,
   SiTailwindcss,
 } from "react-icons/si";
-
-
 
 const techLogos = [
   {
@@ -28,18 +26,18 @@ const techLogos = [
     node: <SiTailwindcss className="w-12 h-12 text-[hsl(var(--primary))]" />,
     title: "Tailwind CSS",
     href: "https://tailwindcss.com",
-},
+  },
 ];
 
 // Alternative with image sources
 const imageLogos = [
   {
-      src: "/logos/company1.png",
-      alt: "Company 1",
-      href: "https://company1.com",
-    },
+    src: "/logos/company1.png",
+    alt: "Company 1",
+    href: "https://company1.com",
+  },
   {
-      src: "/logos/company2.png",
+    src: "/logos/company2.png",
     alt: "Company 2",
     href: "https://company2.com",
   },
@@ -55,7 +53,7 @@ function PartnersLSection() {
     <section className="py-12 bg-gray-900 text-center">
       <div className="container mx-auto px-4">
         <h3 className="text-sm text-gray-400 uppercase tracking-wide mb-6">
-            Trusted by
+          Trusted by
         </h3>
         <div className="relative" style={{ height: "60px" }}>
           <LogoLoop

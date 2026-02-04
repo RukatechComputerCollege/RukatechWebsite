@@ -1,5 +1,5 @@
 import React from "react";
-import StatCard from "../StatCard";
+import StatCard from "../ui/StatCard";
 import { GraduationCap, Users, UserCheck, BookOpen } from "lucide-react";
 
 const stats = [

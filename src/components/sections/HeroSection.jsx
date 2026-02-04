@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import CTAButton from "../CTAButton";
+import CTAButton from "../ui/CTAButton";
 import heroImage from "../../../public/images/hero-business.jpg";
 
 const HeroSection = () => {
@@ -46,7 +46,9 @@ const HeroSection = () => {
             href="#"
             label="LEARN MORE"
             textColor="text-white"
-            hoverTextColor="text-[hsl(var(--accent))]"
+            bgHoverClass="hover:bg-[hsl(var(--primary))]"
+            textHoverClass="group-hover:text-[hsl(var(--accent))]"
+            borderHoverClass="hover:border-[hsl(var(--primary))]"
           />
         </div>
 
