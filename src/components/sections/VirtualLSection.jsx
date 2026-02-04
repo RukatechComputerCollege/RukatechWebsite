@@ -2,8 +2,7 @@ import React, { useRef, useEffect } from "react";
 import CTAButton from "../ui/CTAButton";
 import CarouselNavButton from "../ui/CarouselNavButton";
 
-// Standalone TopCSection — inlined data, animations, and autoplay carousel
-export default function TopCSection() {
+export default function VirtualLSection() {
   const carouselRef = useRef(null);
   const leftRef = useRef(null);
   const rightRef = useRef(null);
@@ -207,9 +206,9 @@ export default function TopCSection() {
 
             <div className="st-right" ref={rightRef}>
               <div className="st-header">
-                <div className="st-pill">TOP COURSES</div>
+                <div className="st-pill">LIVE SECTION</div>
                 <h2 className="st-title">
-                  OUR TOP <span className="accent">COURSES</span>
+                  VIRTUAL LIVE <span className="accent">TRAINING</span>
                 </h2>
 
                 <p className="st-lead text-sm text-gray-600">

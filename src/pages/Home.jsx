@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router";
-import Navbar from "../components/Navbar";
-import { WhatsAppButton } from "../components/WhatsappButton";
+import Navbar from "../components/ui/Navbar";
+import { WhatsAppButton } from "../components/ui/WhatsappButton";
 
 const Home = () => {
   return (

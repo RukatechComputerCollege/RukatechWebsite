@@ -1,5 +1,5 @@
 import React from "react";
-import StatCard from "../StatCard";
+import StatCard from "../ui/StatCard";
 import { GraduationCap, Users, UserCheck, BookOpen } from "lucide-react";
 
 const stats = [
@@ -33,17 +33,17 @@ const StatsSection = () => {
           <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop
               offset="0%"
-              stopColor="hsl(var(--accent))"
+              stopColor="hsl(var(--primary))"
               stopOpacity="0.3"
             />
             <stop
               offset="50%"
-              stopColor="hsl(var(--accent))"
+              stopColor="hsl(var(--primary))"
               stopOpacity="0.8"
             />
             <stop
               offset="100%"
-              stopColor="hsl(var(--accent))"
+              stopColor="hsl(var(--primary))"
               stopOpacity="0.3"
             />
           </linearGradient>
@@ -58,15 +58,7 @@ const StatsSection = () => {
       </div>
 
       <div className="container mx-auto px-4">
-        {/* Section Header */}
-        {/* <div className="stats-header">
-          <span className="stats-badge">Our Impact</span>
-          <h2 className="stats-title">Empowering Learners Worldwide</h2>
-          <p className="stats-subtitle">
-            Join thousands of learners who have transformed their lives through
-            our courses
-          </p>
-        </div> */}
+
 
         {/* Stats Grid with Wave Layout */}
         <div className="stats-grid">

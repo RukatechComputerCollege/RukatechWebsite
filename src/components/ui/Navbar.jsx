@@ -30,7 +30,7 @@ const Navbar = () => {
                 <span className="text-[hsl(var(--primary))] font-bold text-sm lg:text-lg tracking-tight">
                   RUKATECH COMPUTER COLLEGE
                 </span>
-                <span className="block text-[hsl(var(--accent))] text-sm lg:text-medium font-medium -mt-1">
+                <span className="block text-gray-400 text-sm lg:text-medium font-medium -mt-1">
                   Learn What Earns
                 </span>
               </div>
