@@ -14,7 +14,7 @@ export default function WhoCESection() {
       description:
         "Fun, guided learning for ages 3–10. Interactive lessons that build confidence and fundamentals through play and projects.",
       category: "Ages 3–10",
-      imageUrl: "/images/course-aws.jpg",
+      imageUrl: "/images/kid.jpeg",
     },
     {
       id: 2,
@@ -22,7 +22,7 @@ export default function WhoCESection() {
       description:
         "Focused programs for ages 11–17: practical skills for school, creative portfolio work, and mentorship toward careers and certifications.",
       category: "Ages 11–17",
-      imageUrl: "/images/course-azure.jpg",
+      imageUrl: "/images/kid.jpeg",
     },
     {
       id: 3,
@@ -30,7 +30,7 @@ export default function WhoCESection() {
       description:
         "Career-focused and flexible learning for adults: upskilling, certifications, and hands-on projects to level up your career.",
       category: "18+",
-      imageUrl: "/images/course-design.jpg",
+      imageUrl: "/images/kid.jpeg",
     },
   ];
 
@@ -233,35 +233,16 @@ export default function WhoCESection() {
                           className="card-img"
                         />
                         <div className="card-badge">{g.category}</div>
-                        <div className="card-overlay" />
                       </div>
 
                       <div className="card-body">
-                        <div className="card-stars" aria-hidden="true">
-                          {Array.from({ length: 5 }).map((_, s) => (
-                            <svg
-                              className="star"
-                              key={s}
-                              viewBox="0 0 24 24"
-                              fill="#F59E0B"
-                              width="14"
-                              height="14"
-                            >
-                              <path d="M12 .587l3.668 7.431L23.5 9.75l-5.666 5.523L19.334 24 12 19.897 4.666 24l1.5-8.727L.5 9.75l7.832-1.732L12 .587z" />
-                            </svg>
-                          ))}
-                        </div>
-                        <h3 className="card-title">{g.title}</h3>
-                        <p className="card-desc text-gray-600">
-                          {g.description}
-                        </p>
-
                         <div className="card-actions">
                           <CTAButton
                             href="#"
                             label="Start Now"
                             textColor="text-[hsl(var(--accent))]"
                             hoverTextColor="text-[hsl(var(--primary))]"
+                            className="bg-[hsl(var(--primary))] absolute bottom-5 -right-[-4]"
                           />
                         </div>
                       </div>

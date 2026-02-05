@@ -96,15 +96,15 @@ const TestimonialSectionX = () => {
   };
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden bg-[hsl(var(--primary))] py-20">
+    <section className="relative pb-0 md:pb-30 lg:pb-14 w-full overflow-visible bg-[hsl(var(--primary))] pt-20">
       <div className="absolute -left-32 -top-45 h-220 w-180 rounded-full bg-[hsl(var(--accent))] opacity-100" />
-      
+
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="relative mx-auto max-w-5xl rounded-sm bg-[hsl(var(--primary))] px-8 py-12 shadow-xl md:px-16"
+          className="relative z-20 mx-auto max-w-5xl rounded-sm bg-[hsl(var(--primary))] px-8 py-12 shadow-xl md:px-16"
         >
           <div className="mb-10 flex items-center gap-3">
             <div className="h-0.5 w-8 bg-[hsl(var(--accent))]" />

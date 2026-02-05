@@ -14,7 +14,7 @@ export default function VirtualLSection() {
       description:
         "Master the cloud with our comprehensive Azure training. Learn to manage subscriptions, secure identities, and administer infrastructure.",
       category: "Cloud Computing",
-      imageUrl: "/images/course-azure.jpg",
+      imageUrl: "/images/kid.jpeg",
       color: "#0ea5a4",
     },
     {
@@ -23,7 +23,7 @@ export default function VirtualLSection() {
       description:
         "Design resilient, high-performing, secure, and cost-optimized architectures on AWS.",
       category: "AWS",
-      imageUrl: "/images/course-aws.jpg",
+      imageUrl: "/images/kid.jpeg",
       color: "#f97316",
     },
     {
@@ -32,7 +32,7 @@ export default function VirtualLSection() {
       description:
         "Learn design theory, typography, and color mastery. Create stunning visuals for web and print.",
       category: "Design",
-      imageUrl: "/images/course-design.jpg",
+      imageUrl: "/images/kid.jpeg",
       color: "#6366f1",
     },
     {
@@ -41,7 +41,7 @@ export default function VirtualLSection() {
       description:
         "Bridge the gap between development and operations. Master CI/CD pipelines and automation.",
       category: "DevOps",
-      imageUrl: "/images/course-azure.jpg",
+      imageUrl: "/images/kid.jpeg",
       color: "#06b6d4",
     },
   ];
@@ -268,63 +268,9 @@ export default function VirtualLSection() {
                           className="card-img"
                         />
                         <div className="card-badge">{c.category}</div>
-                        <div className="card-overlay">
-                          {/* <span>View Details</span> */}
-                        </div>
                       </div>
 
                       <div className="card-body">
-                        <div className="card-stars" aria-hidden="true">
-                          <svg
-                            className="star"
-                            viewBox="0 0 24 24"
-                            fill="#F59E0B"
-                            width="14"
-                            height="14"
-                          >
-                            <path d="M12 .587l3.668 7.431L23.5 9.75l-5.666 5.523L19.334 24 12 19.897 4.666 24l1.5-8.727L.5 9.75l7.832-1.732L12 .587z" />
-                          </svg>
-                          <svg
-                            className="star"
-                            viewBox="0 0 24 24"
-                            fill="#F59E0B"
-                            width="14"
-                            height="14"
-                          >
-                            <path d="M12 .587l3.668 7.431L23.5 9.75l-5.666 5.523L19.334 24 12 19.897 4.666 24l1.5-8.727L.5 9.75l7.832-1.732L12 .587z" />
-                          </svg>
-                          <svg
-                            className="star"
-                            viewBox="0 0 24 24"
-                            fill="#F59E0B"
-                            width="14"
-                            height="14"
-                          >
-                            <path d="M12 .587l3.668 7.431L23.5 9.75l-5.666 5.523L19.334 24 12 19.897 4.666 24l1.5-8.727L.5 9.75l7.832-1.732L12 .587z" />
-                          </svg>
-                          <svg
-                            className="star"
-                            viewBox="0 0 24 24"
-                            fill="#F59E0B"
-                            width="14"
-                            height="14"
-                          >
-                            <path d="M12 .587l3.668 7.431L23.5 9.75l-5.666 5.523L19.334 24 12 19.897 4.666 24l1.5-8.727L.5 9.75l7.832-1.732L12 .587z" />
-                          </svg>
-                          <svg
-                            className="star"
-                            viewBox="0 0 24 24"
-                            fill="#F59E0B"
-                            width="14"
-                            height="14"
-                          >
-                            <path d="M12 .587l3.668 7.431L23.5 9.75l-5.666 5.523L19.334 24 12 19.897 4.666 24l1.5-8.727L.5 9.75l7.832-1.732L12 .587z" />
-                          </svg>
-                        </div>
-                        <h3 className="card-title">{c.title}</h3>
-                        <p className="card-desc text-gray-600">
-                          {c.description}
-                        </p>
                         <div className="card-actions">
                           {/* CTA Button */}
                           <CTAButton
@@ -332,6 +278,8 @@ export default function VirtualLSection() {
                             label="Start Now"
                             textColor="text-[hsl(var(--accent))]"
                             hoverTextColor="text-[hsl(var(--primary))]"
+                            bgHoverClass="hover:bg-[hsl(var(--accent))]"
+                            className="absolute bottom-5 -right-[-4] bg-[hsl(var(--primary))]"
                           />
                         </div>
                       </div>

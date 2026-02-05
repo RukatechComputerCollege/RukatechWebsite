@@ -390,6 +390,30 @@
   transform: translateY(-3px);
   box-shadow: 0 12px 26px rgba(6, 182, 212, 0.12);
 }
+
+/* Footer curve responsive radii */
+.footer-curve {
+  border-top-left-radius: 150% 150%;
+  border-top-right-radius: 150% 150%;
+  /* background-color: transparent; */
+}
+
+/* Tablet (md: 768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .footer-curve {
+    border-top-left-radius: 150% 100%;
+    border-top-right-radius: 150% 100%;
+  }
+}
+
+/* Mobile (max-width: 767px) */
+@media (max-width: 767px) {
+  .footer-curve {
+    border-top-left-radius: 350% 100%;
+    border-top-right-radius: 350% 100%;
+  }
+}
+
 .st-primary-icon {
   opacity: 0.95;
   margin-left: 10px;
@@ -469,11 +493,9 @@
   background: transparent;
 }
 .card {
-  flex: 0 0 260px;
-  background: #fff;
-  border-radius: 14px;
-  box-shadow: 0 6px 20px rgba(2, 6, 23, 0.06);
-  overflow: hidden;
+  width: 300px;
+  height: 380px;
+  position: relative;
   scroll-snap-align: start;
   display: flex;
   flex-direction: column;
@@ -488,12 +510,17 @@
 }
 .card-media {
   position: relative;
-  overflow: hidden;
-  aspect-ratio: 4/3;
-}
-.card-img {
   width: 100%;
+  height: 370px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* Desktop: images fill the card height and width is auto so aspect ratio is preserved */
+.card-img {
   height: 100%;
+  width: 100%;
+  max-width: none;
   object-fit: cover;
   display: block;
   transition: transform 0.5s ease;
@@ -505,6 +532,7 @@
   position: absolute;
   top: 10px;
   left: 10px;
+  z-index: 30;
   background: hsl(var(--background) / 0.1);
   backdrop-filter: blur(6px);
   padding: 3px 8px;
@@ -513,19 +541,49 @@
   font-size: 12px;
   border: 1px solid rgba(0, 0, 0, 0.04);
 }
+/* Overlay holds the floating CTA. Visible on md+ screens */
 .card-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.6));
-  opacity: 0;
   display: flex;
   align-items: flex-end;
-  justify-content: flex-start;
+  justify-content: flex-end; /* place CTA on bottom-right */
   padding: 12px;
+  opacity: 0;
   transition: opacity 0.28s;
+  pointer-events: none; /* don't block clicks except the CTA */
 }
-.card-media:hover .card-overlay {
-  opacity: 1;
+.card-overlay-inner {
+  pointer-events: auto;
+}
+.card-overlay-cta {
+  z-index: 40;
+}
+/* show overlay on medium+ screens */
+@media (min-width: 768px) {
+  .card-overlay {
+    opacity: 1;
+  }
+  /* hide the card-actions CTA on larger screens since we float the CTA */
+  .card-actions {
+    display: none;
+  }
+}
+/* keep current mobile behavior: image full-width, overlay hidden */
+@media (max-width: 1023px) {
+  .card-img,
+  .st-photo-img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  .card-overlay {
+    opacity: 0;
+  }
+  .card-actions {
+    display: flex;
+  }
 }
 .card-body {
   padding: 12px 14px;
@@ -628,7 +686,7 @@
     padding-inline: 18px;
     scroll-padding-left: 18px;
     scroll-padding-right: 18px;
-    gap: 16px;
+    gap: 26px;
     max-width: 100%;
     -webkit-overflow-scrolling: touch;
   }
@@ -652,22 +710,52 @@
 }
 
 @media (min-width: 640px) and (max-width: 1023px) {
-  /* Tablet: show roughly 2.5 cards so the next card peeks in */
-  .st-section {
+  /* Tablet: prevent horizontal overflow and make carousel stable */
+  .st-topc-root,
+  .st-section,
+  .st-container {
     overflow-x: hidden;
   }
+
+  /* Tablet: keep carousel padding and scroll padding explicit */
   .st-carousel {
     padding-inline: 20px;
-    scroll-padding: 20px;
+    scroll-padding-left: 20px;
+    scroll-padding-right: 20px;
+    gap: 16px;
+    box-sizing: border-box;
   }
+
+  /* show approximately 2 cards with a small peek without overflowing */
   .card {
-    flex: 0 0 40%; /* approx 2.5 visible cards */
+    flex: 0 0 calc(48% - 12px);
+    max-width: calc(48% - 12px);
+    min-width: 0;
   }
+
   .card-thumb {
     height: 160px;
   }
+
   .st-carousel-controls {
     display: flex;
+  }
+
+  /* Ensure grid/columns and carousel shrink properly and don't trigger page overflow */
+  .st-grid,
+  .st-left,
+  .st-right,
+  .st-carousel {
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  /* Prevent title/lead fixed widths from causing overflow on tablet */
+  .st-title {
+    width: 100%;
+  }
+  .st-lead {
+    width: 100%;
   }
 }
 
@@ -693,7 +781,7 @@
   padding-top: 2rem;
   padding-bottom: 2rem;
   overflow: hidden;
-  background: hsl(var(--accent))
+  background: hsl(var(--accent));
 }
 
 @media (min-width: 768px) {
