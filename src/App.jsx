@@ -3,7 +3,7 @@ import Home from "./pages/Home.jsx";
 import { Route, Routes } from "react-router";
 import About from "./pages/About.jsx";
 import Contact from "./pages/Contact.jsx";
-import LandingPage from "./pages/Landingpage.jsx";
+import LandingPage from "./pages/LandingPage.jsx";
 import NotFound from "./pages/NotFound.jsx";
 
 const App = () => {

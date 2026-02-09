@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import CTAButton from "../ui/CTAButton";
-import heroImage from "../../../public/images/hero-business.jpg";
+import heroImage from "/images/hero-business.jpg";
+import courseAzure from "/images/course-azure.jpg";
+import courseDesign from "/images/course-design.jpg";
 
 const HeroSection = () => {
-  const [currentSlide, setCurrentSlide] = useState(6);
-  const totalSlides = 10;
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const totalSlides = 6;
 
   // Auto-advance slides
   useEffect(() => {
@@ -14,19 +16,31 @@ const HeroSection = () => {
     return () => clearInterval(interval);
   }, []);
 
+  const bgImages = [heroImage, courseAzure, courseDesign, heroImage];
+  const activeBg = currentSlide % bgImages.length;
+
   return (
     <section className="relative h-screen w-full overflow-hidden">
-      {/* Background Image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-700"
-        style={{ backgroundImage: `url(${heroImage})` }}
-      />
+      {/* Background Images (stacked, fade between them) */}
+      {bgImages.map((img, idx) => (
+        <div
+          key={idx}
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
+          style={{
+            backgroundImage: `url(${img})`,
+            opacity: idx === activeBg ? 1 : 0,
+            transform: idx === activeBg ? "scale(1)" : "scale(1.02)",
+            transition: "opacity 700ms ease, transform 700ms ease",
+            pointerEvents: "none",
+          }}
+        />
+      ))}
 
       {/* Blue Gradient Overlay */}
       <div className="absolute inset-0 hero-overlay" />
 
       {/* Content */}
-      <div className="relative z-10 h-full flex flex-col left-0 md:left-16 justify-center container mx-auto px-6 lg:px-12">
+      <div className="relative z-10 h-full flex flex-col left-0 md:left-2 lg:left-16 justify-center container mx-auto px-6 lg:px-12">
         <div className="max-w-3xl animate-fade-in">
           {/* Subheading */}
           <div className="flex gap-3">

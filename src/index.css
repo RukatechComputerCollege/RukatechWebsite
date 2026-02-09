@@ -1,6 +1,5 @@
-@import "tailwindcss";
-
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+@import "tailwindcss";
 
 @layer base {
   * {
@@ -158,11 +157,11 @@
   }
 
   .slide-indicator {
-    @apply w-2 h-2 rounded-full bg-[hsl(var(--primary))/40] transition-all duration-300;
+    @apply w-3 h-2 rounded-full transition-all duration-300 bg-[hsl(var(--primary))] ring-0;
   }
 
   .slide-indicator-active {
-    @apply w-3 h-3 bg-[hsl(var(--primary))];
+    @apply w-4 h-4 bg-[hsl(var(--accent))] ring-0;
   }
 
   .navbar-border {
@@ -468,6 +467,10 @@
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   padding: 6px;
+  /* prevent the carousel from capturing vertical scroll/pan gestures
+     and avoid scroll chaining into/out of this element */
+  overscroll-behavior-x: contain;
+  touch-action: pan-y;
 }
 
 /* Default scrollbar styling */
@@ -508,6 +511,17 @@
   transform: translateY(-6px);
   box-shadow: 0 18px 40px rgba(2, 6, 23, 0.08);
 }
+
+/* Disable hover elevation on touch devices to avoid accidental jumps
+   when users scroll vertically into this section */
+@media (hover: none), (pointer: coarse) {
+  .card:hover,
+  .card:active {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+}
+
 .card-media {
   position: relative;
   width: 100%;

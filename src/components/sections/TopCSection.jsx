@@ -165,7 +165,7 @@ export default function TopCSection() {
           <div className="st-grid">
             <div className="st-left" ref={leftRef}>
               <div className="st-photo">
-                {/* Student portrait image (uses public/images/student-portrait.jpg) */}
+                {/* Student portrait image (uses images/student-portrait.jpg) */}
                 <img
                   src="/images/student-portrait.jpg"
                   alt="Student with backpack"
@@ -227,7 +227,7 @@ export default function TopCSection() {
                 />
               </div>
 
-              <div className="st-carousel-wrap overflow-auto scrollbar-hide">
+              <div className="st-carousel-wrap overflow-x-auto scrollbar-hide">
                 <div className="st-carousel-controls">
                   {/* CarouselNavButton keeps default visuals but allows props to override */}
                   <CarouselNavButton

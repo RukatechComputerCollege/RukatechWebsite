@@ -280,7 +280,7 @@ const Footer = forwardRef((_, ref) => {
                 whileHover={{ scale: 1.02 }}
               >
                 <img
-                  src="../../../public/images/logo.png"
+                  src="/images/logo.png"
                   alt="Rukatech Logo"
                   className="w-10 h-10"
                 />

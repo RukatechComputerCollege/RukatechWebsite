@@ -27,7 +27,7 @@ export default function ScrollToTopButton() {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.9, y: 12 }}
           transition={{ duration: 0.28, ease: "easeOut" }}
-          className="fixed right-6 bottom-6 z-50"
+          className="fixed right-6 bottom-10 z-50"
         >
           {/* subtle glow behind button */}
           <motion.span
@@ -54,7 +54,7 @@ export default function ScrollToTopButton() {
                 duration: 2.2,
                 ease: "easeInOut",
               }}
-              className="absolute top-1 left-0 right-0 flex justify-center pointer-events-none"
+              className="absolute top-2 left-0 right-0 flex justify-center pointer-events-none"
             >
               <LiaLocationArrowSolid className="h-5 w-5 fill-current" />
             </motion.span>

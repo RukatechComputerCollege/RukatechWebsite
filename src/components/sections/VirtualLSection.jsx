@@ -156,15 +156,12 @@ export default function VirtualLSection() {
   return (
     <div className="st-topc-root">
       <section className="st-section">
-        {/* decorative blurred blobs similar to original design */}
-        {/* <div className="st-blob st-blob-1" aria-hidden="true" /> */}
-        {/* <div className="st-blob st-blob-2" aria-hidden="true" /> */}
 
         <div className="st-container">
           <div className="st-grid">
             <div className="st-left" ref={leftRef}>
               <div className="st-photo">
-                {/* Student portrait image (uses public/images/student-portrait.jpg) */}
+                {/* Student portrait image (uses images/student-portrait.jpg) */}
                 <img
                   src="/images/student-portrait.jpg"
                   alt="Student with backpack"

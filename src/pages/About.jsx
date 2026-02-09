@@ -1,9 +1,17 @@
-import React from 'react'
+import Navbar from "../components/ui/Navbar";
+import StatsSection from "../components/sections/StatsSection";
+import TestimonialSection from "../components/sections/TestimonialSection";
+
 
 const About = () => {
   return (
-    <div>About</div>
-  )
-}
+    <div>
+      <Navbar />
+      
+      <StatsSection />
+      <TestimonialSection />
+    </div>
+  );
+};
 
 export default About

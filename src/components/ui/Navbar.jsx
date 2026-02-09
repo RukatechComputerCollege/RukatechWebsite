@@ -37,8 +37,8 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Navigation Links */}
-          <div className="hidden md:flex items-center gap-8">
+          {/* Navigation Links (visible from large screens only) */}
+          <div className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
               <a
                 key={link.name}
@@ -53,9 +53,9 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile/Tablet Menu Button */}
           <button
-            className="md:hidden text-[hsl(var(--primary))] p-2 rounded-md"
+            className="lg:hidden text-[hsl(var(--primary))] p-2 rounded-md"
             aria-label="Open menu"
             onClick={() => setOpen(true)}
           >
@@ -91,7 +91,7 @@ const Navbar = () => {
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-2">
                   <img
-                    src="logo.png"
+                    src="/images/logo.png"
                     alt="Rukatech Logo"
                     className="w-8 h-8 object-contain"
                   />
