@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
 import { motion, AnimatePresence } from "framer-motion";
@@ -7,11 +8,11 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   const navLinks = [
-    { name: "HOME", href: "#", active: true },
-    { name: "ABOUT US", href: "#" },
-    { name: "PROGRAMS", href: "#", hasDropdown: true },
-    { name: "CONTACT US", href: "#" },
-    { name: "STUDENT PORTAL", href: "#" },
+    { name: "HOME", to: "/", active: true },
+    { name: "ABOUT US", to: "/about" },
+    { name: "PROGRAMS", to: "#", hasDropdown: true },
+    { name: "CONTACT US", to: "/contact" },
+    { name: "STUDENT PORTAL", to: "/" },
   ];
 
   return (
@@ -40,16 +41,18 @@ const Navbar = () => {
           {/* Navigation Links (visible from large screens only) */}
           <div className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
-              <a
+              <NavLink
                 key={link.name}
-                href={link.href}
-                className={`nav-link flex items-center gap-1 ${link.active ? "nav-link-active" : ""}`}
+                to={link.to}
+                className={({ isActive }) =>
+                  `nav-link flex items-center gap-1 ${isActive ? "nav-link-active" : ""}`
+                }
               >
                 {link.name}
                 {link.hasDropdown && (
                   <MdKeyboardArrowDown className="w-4 h-4" />
                 )}
-              </a>
+              </NavLink>
             ))}
           </div>
 
@@ -115,9 +118,8 @@ const Navbar = () => {
 
               <nav className="flex flex-col gap-4">
                 {navLinks.map((link, index) => (
-                  <motion.a
+                  <motion.div
                     key={link.name}
-                    href={link.href}
                     initial={{ x: 40, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     exit={{ x: 40, opacity: 0 }}
@@ -126,21 +128,30 @@ const Navbar = () => {
                       type: "spring",
                       stiffness: 200,
                     }}
-                    onClick={() => setOpen(false)}
-                    className="text-lg font-semibold tracking-wide"
                   >
-                    {link.name}
-                  </motion.a>
+                    <NavLink
+                      to={link.to}
+                      onClick={() => setOpen(false)}
+                      className={({ isActive }) =>
+                        `text-lg font-semibold tracking-wide ${
+                          isActive ? "text-[hsl(var(--primary))]" : ""
+                        }`
+                      }
+                    >
+                      {link.name}
+                    </NavLink>
+                  </motion.div>
                 ))}
               </nav>
 
               <div className="mt-8">
-                <a
-                  href="#"
+                <NavLink
+                  to="/"
+                  onClick={() => setOpen(false)}
                   className="inline-block px-4 py-2 bg-[hsl(var(--accent))] text-[hsl(var(--accent-foreground))] rounded-md font-semibold"
                 >
                   Get Started
-                </a>
+                </NavLink>
               </div>
             </motion.aside>
           </>
