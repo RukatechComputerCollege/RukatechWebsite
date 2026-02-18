@@ -1,22 +1,55 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const programs = [
+    { name: "Front End Development", to: "/frontend" },
+    { name: "Backend Development", to: "/backend" },
+    { name: "Full Stack Development", to: "/fullstack" },
+    { name: "Graphics Design", to: "/graphics-design" },
+    { name: "UI/UX Design", to: "/ui-ux-design" },
+    { name: "Programming", to: "/programming" },
+    { name: "Cloud Computing", to: "/cloud-computing" },
+    { name: "Data Science", to: "/data-science" },
+  ];
+
+  const isAnyProgramActive = programs.some((prog) =>
+    location.pathname.startsWith(prog.to),
+  );
 
   const navLinks = [
     { name: "HOME", to: "/", active: true },
     { name: "ABOUT US", to: "/about" },
     { name: "PROGRAMS", to: "#", hasDropdown: true },
     { name: "CONTACT US", to: "/contact" },
-    { name: "STUDENT PORTAL", to: "/" },
+    { name: "STUDENT PORTAL", to: "/student-portal" },
   ];
 
   return (
-    <nav className="absolute top-0 left-0 lg:pl-26 right-0 z-40 navbar-border">
+    <nav
+      className={`fixed top-0 left-0 lg:pl-26 right-0 z-40 navbar-border transition-all duration-300 ${
+        isScrolled
+          ? "bg-black/20 backdrop-blur-xl border-b border-white/20"
+          : "bg-transparent border-b border-transparent"
+      }`}
+    >
       <div className="container mx-auto lg:px-12">
         <div className="flex items-center justify-between py-4">
           {/* Logo */}
@@ -41,18 +74,70 @@ const Navbar = () => {
           {/* Navigation Links (visible from large screens only) */}
           <div className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
-              <NavLink
-                key={link.name}
-                to={link.to}
-                className={({ isActive }) =>
-                  `nav-link flex items-center gap-1 ${isActive ? "nav-link-active" : ""}`
-                }
-              >
-                {link.name}
-                {link.hasDropdown && (
-                  <MdKeyboardArrowDown className="w-4 h-4" />
+              <div key={link.name} className="relative group">
+                {link.hasDropdown ? (
+                  <button
+                    onMouseEnter={() => setDropdownOpen(true)}
+                    onMouseLeave={() => setDropdownOpen(false)}
+                    className={`nav-link flex items-center gap-1 ${
+                      isAnyProgramActive ? "nav-link-active" : ""
+                    }`}
+                  >
+                    {link.name}
+                    <MdKeyboardArrowDown className="w-4 h-4 transition-transform group-hover:rotate-180" />
+                  </button>
+                ) : (
+                  <NavLink
+                    to={link.to}
+                    className={({ isActive }) =>
+                      `nav-link flex items-center gap-1 ${
+                        isActive ? "nav-link-active" : ""
+                      }`
+                    }
+                  >
+                    {link.name}
+                  </NavLink>
                 )}
-              </NavLink>
+
+                {/* Dropdown Menu for Programs */}
+                {link.hasDropdown && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={
+                      dropdownOpen
+                        ? { opacity: 1, y: 0 }
+                        : { opacity: 0, y: -10 }
+                    }
+                    onMouseEnter={() => setDropdownOpen(true)}
+                    onMouseLeave={() => setDropdownOpen(false)}
+                    className={`absolute left-0 top-full pt-2 transition-all duration-200 ${
+                      dropdownOpen
+                        ? "opacity-100 visible"
+                        : "opacity-0 invisible"
+                    }`}
+                  >
+                    <div className="rounded-lg shadow-xl overflow-hidden p-6 w-max bg-white/5 backdrop-blur-xl border border-slate-700/20">
+                      <div className="grid grid-cols-2 gap-6">
+                        {programs.map((program, idx) => (
+                          <NavLink
+                            key={idx}
+                            to={program.to}
+                            className={({ isActive }) =>
+                              `text-sm font-medium transition-colors duration-200 block py-2 ${
+                                isActive
+                                  ? "text-[hsl(var(--primary))] font-semibold"
+                                  : "text-white hover:border-b-2 w-fit border-[hsl(var(--accent))]"
+                              }`
+                            }
+                          >
+                            {program.name}
+                          </NavLink>
+                        ))}
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </div>
             ))}
           </div>
 
