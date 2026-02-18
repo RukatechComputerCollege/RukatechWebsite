@@ -3,7 +3,8 @@ import Home from "./pages/Home.jsx";
 import { Route, Routes } from "react-router";
 import About from "./pages/About.jsx";
 import Contact from "./pages/Contact.jsx";
-import LandingPage from "./pages/Landingpage.jsx";
+import StudentPortal from "./pages/StudentPortal.jsx";
+import LandingPage from "./pages/LandingPage.jsx";
 import NotFound from "./pages/NotFound.jsx";
 
 const App = () => {
@@ -12,8 +13,9 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />}>
           <Route index element={<LandingPage />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route path="about" element={<About />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="student-portal" element={<StudentPortal />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

@@ -1,4 +1,4 @@
-import { GiSupersonicArrow } from "react-icons/gi";
+import { GiPentarrowsTornado } from "react-icons/gi";
 
 /**
  * Reusable CTA Button
@@ -56,7 +56,7 @@ const CTAButton = ({
       <span
         className={`cta-arrow group-hover:translate-x-3 group-hover:rotate-670 transition-transform ${iconBgClass} ${iconColorClass} ${arrowClassName}`}
       >
-        <GiSupersonicArrow className="w-4 h-4" />
+        <GiPentarrowsTornado className="w-4 h-4" />
       </span>
     </a>
   );
